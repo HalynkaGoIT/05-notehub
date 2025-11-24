@@ -1,25 +1,25 @@
-import { useEffect, useState } from "react";
-import css from "./App.module.css";
-import { useDebounce } from "use-debounce";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { fetchNotes } from "../../services/noteService";
-import toast, { Toaster } from "react-hot-toast";
-import SearchBox from "../SearchBox/SearchBox";
-import Pagination from "../Pagination/Pagination";
-import Modal from "../Modal/Modal";
-import NoteForm from "../NoteForm/NoteForm";
-import Loader from "../Loader/Loader";
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import NoteList from "../NoteList/NoteList";
+import { useEffect, useState } from 'react';
+import css from './App.module.css';
+import { useDebounce } from 'use-debounce';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { fetchNotes } from '../../services/noteService';
+import toast, { Toaster } from 'react-hot-toast';
+import SearchBox from '../SearchBox/SearchBox';
+import Pagination from '../Pagination/Pagination';
+import Modal from '../Modal/Modal';
+import NoteForm from '../NoteForm/NoteForm';
+import Loader from '../Loader/Loader';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import NoteList from '../NoteList/NoteList';
 
 export default function App() {
   const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [debouncedSearch] = useDebounce(search, 400);
 
   const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ["notes", page, debouncedSearch],
+    queryKey: ['notes', page, debouncedSearch],
     queryFn: () =>
       fetchNotes({
         page,
@@ -46,7 +46,7 @@ export default function App() {
 
   useEffect(() => {
     if (data && notesArr.length === 0) {
-      toast.error("No notes found for your request");
+      toast.error('No notes found for your request');
     }
   }, [data, notesArr.length, isSuccess, debouncedSearch]);
 
